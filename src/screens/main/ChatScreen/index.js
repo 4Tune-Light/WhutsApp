@@ -94,10 +94,10 @@ const ChatScreen = props => {
 		/>
 			<View>
 				<FlatList
+					inverted
 					style={{padding: 10, marginTop: 60}}
-					contentContainerStyle={{ paddingBottom: 70}}
-					ListFooterComponentStyle={{marginBottom: 70}}
-					data={messages}
+					contentContainerStyle={{ paddingTop: 50, paddingBottom: 30 }}
+					data={messages.reverse()}
 					renderItem={renderRow}
 					keyExtractor={(item, index) => index.toString()}
 				/>
