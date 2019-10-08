@@ -1,13 +1,13 @@
 import firebase from 'firebase'
 const firebaseConfig = {
-  apiKey: "AIzaSyC5QMhQEZAH3w53bZ4HdLaq0M_vGh6LEkc",
-  authDomain: "whutsapp-70cf7.firebaseapp.com",
-  databaseURL: "https://whutsapp-70cf7.firebaseio.com",
-  projectId: "whutsapp-70cf7",
-  storageBucket: "whutsapp-70cf7.appspot.com",
-  messagingSenderId: "388466580564",
-  appId: "1:388466580564:web:e9c78e7dda193a6cf1a1c1",
-  measurementId: "G-3MP030ZQBR"
+  apiKey: "YOUR_GOOGLE_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  databaseURL: "YOUR_DATABASE_URL",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGIN_SENDER_ID",
+  appId: "YOUR_APP_ID",
+  measurementId: "YOUR_MEASUREMENT_ID"
 };
 
 const Firebase = firebase.initializeApp(firebaseConfig);
