@@ -62,7 +62,7 @@ const ChatTab = props => {
     return(
       <TouchableOpacity style={styles.card} onPress={() => props.navigate('Chat', {name: item.name, phone: item.phone})}>
         <View >
-          <Image resizeMode='cover' style={styles.image} source={imagePlaceholder} />
+          <Image resizeMode='cover' style={styles.image} source={item.photo ? {uri: item.photo} : imagePlaceholder} />
         </View>
         <View style={styles.nameContainer}>
           <View>

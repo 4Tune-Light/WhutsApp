@@ -1,7 +1,8 @@
+import { Text, TextInput, View, Button, ToastAndroid, AsyncStorage, TouchableOpacity } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 import Firebase from '../../../publics/Firebase'
 import React, { useState } from 'react'
 import styles from './styles'
-import { Text, TextInput, View, Button, ToastAndroid, AsyncStorage } from 'react-native'
 
 const LoginScreen = props => {
   const [ phone, setPhone ] = useState('')
@@ -19,10 +20,10 @@ const LoginScreen = props => {
           const person = val.val()
           if (person) {
             if (person.password === password) {
-              Firebase.database().ref('users/' + phone).update({status: true})
+              Firebase.database().ref('users/' + phone).update({status: '1'})
+              AsyncStorage.setItem('key', phone)
               AsyncStorage.setItem('userStatus', '1')
               AsyncStorage.setItem('userName', person.name)
-              AsyncStorage.setItem('key', phone)
               ToastAndroid.show('Login Success', ToastAndroid.SHORT, ToastAndroid.BOTTOM);
               setTimeout(() => props.navigation.navigate('Home'), 1500)
             } else {
@@ -39,8 +40,14 @@ const LoginScreen = props => {
   }
 
   return (
+    <LinearGradient
+        colors={['#147ED3', '#46A4D3']}
+        style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, padding: 10, paddingTop: 75, justifyContent: 'center'}}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 1}}
+    >
     <View style={styles.container}>
-      <Text>Login</Text>
+      <Text style={styles.title}>Login to WhutsApp</Text>
       <TextInput
         style={styles.textInput}
         keyboardType='numeric'
@@ -56,12 +63,22 @@ const LoginScreen = props => {
         onChangeText={password => setPassword(password)}
         value={password}
       />
-      <Button title="Login" onPress={handleLogin} />
-      <Button
-        title="Don't have an account? Sign Up"
+
+      <TouchableOpacity
+        style={styles.loginContainer}
+        onPress={handleLogin}
+      >
+        <Text style={styles.login} >LOGIN</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
         onPress={() => props.navigation.navigate('Register')}
-      />
+      >
+        <Text style={styles.register}>Don't have an account? Sign Up</Text>
+      </TouchableOpacity>
+
     </View>
+    </LinearGradient>
   )
 }
 

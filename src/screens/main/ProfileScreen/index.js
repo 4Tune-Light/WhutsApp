@@ -21,7 +21,7 @@ const ProfileScreen = props => {
 
   useEffect(() => {
     if (phone.length > 0) {
-      Firebase.database().ref('users/' + phone).once('value', val => {
+      Firebase.database().ref('users/' + phone).on('value', val => {
         let person = val.val()
         setUserStatus(person.status)
         setUserName(person.name)

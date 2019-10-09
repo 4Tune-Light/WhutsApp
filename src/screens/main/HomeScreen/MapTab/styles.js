@@ -11,12 +11,11 @@ export default styles = StyleSheet.create({
 		width: 175,
 		height: 175,
 		borderRadius: 100,
-		marginRight: -25
+		marginBottom: 20,
 	},
 	statusContainer: {
 		flexDirection: 'row',
-		alignItems: 'center',
-		marginTop: 20
+		alignItems: 'center'
 	},
 	circle: {
 		height: 12, 
@@ -26,11 +25,11 @@ export default styles = StyleSheet.create({
 	},
 	status: {
 		fontWeight: 'bold',
-		fontSize: 18,	
+		fontSize: 20,	
 	},
 	name: {
 		fontWeight: 'bold',
-		fontSize: 23,
+		fontSize: 25,
 		color: '#555',
 		marginBottom: 150,
 		marginRight: 10

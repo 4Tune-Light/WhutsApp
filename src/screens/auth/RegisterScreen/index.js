@@ -1,7 +1,8 @@
-import Firebase from '../../../publics/Firebase'
+import { Text, TextInput, View, Button, AsyncStorage, ToastAndroid, TouchableOpacity } from 'react-native'
+import LinearGradient from 'react-native-linear-gradient'
 import React, { useState, useEffect } from 'react'
+import Firebase from '../../../publics/Firebase'
 import styles from './styles'
-import { Text, TextInput, View, Button, AsyncStorage, ToastAndroid } from 'react-native'
 
 const RegisterScreen = props => {
   const [ phone, setPhone ] = useState('')
@@ -32,35 +33,52 @@ const RegisterScreen = props => {
     if (exist == false) {
       AsyncStorage.setItem('key', phone)
       AsyncStorage.setItem('userStatus', '1')
-      Firebase.database().ref('users/'+ phone).set({name: phone, password})
+      AsyncStorage.setItem('userName', phone)
+      Firebase.database().ref('users/'+ phone).set({name: phone, password, phone})
       props.navigation.navigate('Home')
     }
   }, [exist])
 
   return (
+    <LinearGradient
+        colors={['#147ED3', '#46A4D3']}
+        style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, padding: 10, paddingTop: 75, justifyContent: 'center'}}
+        start={{x: 0, y: 0}}
+        end={{x: 1, y: 1}}
+    >
     <View style={styles.container}>
-      <Text>Sign Up</Text>
+      <Text style={styles.title}>Register to WhutsApp</Text>
       <TextInput
+        style={styles.textInput}
         keyboardType='numeric'
         placeholder="Phone Number"
-        style={styles.textInput}
         onChangeText={phone => setPhone(phone)}
         value={phone}
       />
       <TextInput
         secureTextEntry
-        placeholder="Password"
-        autoCapitalize="none"
         style={styles.textInput}
+        autoCapitalize="none"
+        placeholder="Password"
         onChangeText={password => setPassword(password)}
         value={password}
       />
-      <Button title="Sign Up" onPress={handleSignUp} />
-      <Button
-        title="Already have an account? Login"
+
+      <TouchableOpacity
+        style={styles.loginContainer}
+        onPress={handleSignUp}
+      >
+        <Text style={styles.login} >SIGN UP</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
         onPress={() => props.navigation.navigate('Login')}
-      />
+      >
+        <Text style={styles.register}>Alredy have an account? Sign In</Text>
+      </TouchableOpacity>
+
     </View>
+    </LinearGradient>
   )
 }
 

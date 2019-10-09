@@ -6,7 +6,7 @@ import { Icon } from 'native-base'
 const Header = props => {
 	const [ phone, setPhone ] = useState('')
 	const [ status, setStatus ] = useState(false)
-	const { title, back, goBack, name, image, getParam, navigate } = props
+	const { title, back, goBack, name, image, getParam, navigate, photo } = props
 	const imagePlaceholder = require('../../../publics/image/ImagePlaceholder.jpg')
 
 	useEffect(() => {
@@ -49,7 +49,7 @@ const Header = props => {
 		<TouchableOpacity style={styles.touchContainer} onPress={() => props.navigate('Profile', {phone})}>
 		{	image === true &&
 			<View>
-				<Image resizeMode='cover' style={styles.image} source={imagePlaceholder} />
+				<Image resizeMode='cover' style={styles.image} source={photo ? {uri: photo} : imagePlaceholder} />
 			</View>
 		}
 

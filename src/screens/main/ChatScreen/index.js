@@ -12,9 +12,10 @@ const ChatScreen = props => {
 	const [ messages, setMessages ] = useState([])
 	const [ message, setMessage ] = useState(null)
 	const [ name, setName ] = useState(null)
-	const [ phone, setPhone ] = useState(null)
+	const [ phone, setPhone ] = useState('')
 	const [ key, setKey ] = useState(null)
 	const [ fulfilled, setFulfilled ] = useState(false)
+	const [ photo, setPhoto ] = useState('')
 
 	const sendMessage = () => {
 		if (message) {
@@ -74,9 +75,19 @@ const ChatScreen = props => {
 				.on('child_added', val => {
 					let message = val.val()
 					setMessages(prevState => [...prevState, message])
+					setMessages(prevState => prevState.reverse())
 				})
 		})
 	}, [])
+
+	useEffect(() => {
+		if (phone.length > 0) {
+			Firebase.database().ref('users/' + phone).once('value', val => {
+				const value = val.val()
+				setPhoto(value.photo)
+			})
+		}
+	}, [phone])
 
 	const background = require('../../../publics/image/ChatBackground.jpg')
 
@@ -90,14 +101,15 @@ const ChatScreen = props => {
 			goBack={props.navigation.goBack}
 			image={true}
 			name={name}
-			status={true} 
+			status={true}
+			photo={photo} 
 		/>
 			<View>
 				<FlatList
 					inverted
 					style={{padding: 10, marginTop: 60}}
 					contentContainerStyle={{ paddingTop: 50, paddingBottom: 30 }}
-					data={messages.reverse()}
+					data={messages}
 					renderItem={renderRow}
 					keyExtractor={(item, index) => index.toString()}
 				/>

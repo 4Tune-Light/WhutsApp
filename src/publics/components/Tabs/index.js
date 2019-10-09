@@ -1,19 +1,22 @@
 import ProfileTab from '../../../screens/main/HomeScreen/ProfileTab'
 import ChatTab from '../../../screens/main/HomeScreen/ChatTab'
+import MapTab from '../../../screens/main/HomeScreen/MapTab'
 import { View, Text, StyleSheet } from 'react-native'
 import { Tabs, Tab, TabHeading } from 'native-base'
-import React from 'react'
+import React, { useState } from 'react'
 
 const MultiTabs = props => {
+	const [ currentTab, setCurrentTab ] = useState(1)
 	return(
 		<View style={styles.container}>
 			<Tabs 
-				initialPage={1} 
+				initialPage={currentTab} 
 				tabContainerStyle={styles.tabs}
+				onChangeTab={({ i }) => setCurrentTab(i)}
   		>
-				<Tab heading={<TabHeading style={styles.tabHeading}><Text style={styles.tabHeadingText}>PROFILE</Text></TabHeading>} ><ProfileTab navigate={props.navigate}/></Tab>
-				<Tab heading={<TabHeading style={styles.tabHeading}><Text style={styles.tabHeadingText}>CHATS</Text></TabHeading>}><ChatTab navigate={props.navigate}/></Tab>
-				<Tab heading={<TabHeading style={styles.tabHeading}><Text style={styles.tabHeadingText}>MAP</Text></TabHeading>} ></Tab>
+				<Tab heading={<TabHeading style={styles.tabHeading}><Text style={{...styles.tabHeadingText, color: currentTab === 0 ? '#EEE' : 'rgba(220,220,220,0.5)'}}>PROFILE</Text></TabHeading>} ><ProfileTab navigate={props.navigate}/></Tab>
+				<Tab heading={<TabHeading style={styles.tabHeading}><Text style={{...styles.tabHeadingText, color: currentTab === 1 ? '#EEE' : 'rgba(220,220,220,0.5)'}}>CHATS</Text></TabHeading>}><ChatTab navigate={props.navigate}/></Tab>
+				<Tab heading={<TabHeading style={styles.tabHeading}><Text style={{...styles.tabHeadingText, color: currentTab === 2 ? '#EEE' : 'rgba(220,220,220,0.5)'}}>MAP</Text></TabHeading>} ><MapTab /></Tab>
 			</Tabs>
 			<View style={styles.shadow}></View>
 		</View>
@@ -31,7 +34,6 @@ const styles = StyleSheet.create({
 		backgroundColor: '#0088CC',
 	},
 	tabHeadingText: {
-		color: '#EEE',
 		fontSize: 15,
 		fontWeight: 'bold'
 	},
